@@ -1,8 +1,11 @@
 const addCartItems = document.querySelectorAll(".button")
 const cartValue = document.getElementById("cart-value")
+var whatsAppApi = "https://api.whatsapp.com/send?phone=6374134070&text=Order%20details";
 let cartCount = 0;
 let totalPrice = 0;
 let CartItems = []
+
+
 
 addCartItems.forEach(button => {
     button.addEventListener('click',(event) => {
@@ -28,11 +31,22 @@ addCartItems.forEach(button => {
     });
 });
 
+function whatsAppData(){
+    CartItems.forEach((ele) =>{
+      if (ele.quantity!==0){
+      whatsAppApi+= '%0A' +ele.productName+ '%20'+ele.quantity
+      }
+    })
+    whatsAppApi+= '%0A'+"The total amount is $"+totalPrice
+  }
+
 document.getElementById('cart').addEventListener('click',() =>{
     CartItems.forEach((obj) => {
         console.log(obj)
     })
     console.log("The total payable amount is $"+totalPrice)
+whatsAppData()  
+window.open(whatsAppApi)
 })
 
 
